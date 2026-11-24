@@ -15,6 +15,10 @@ public GerenciadorLocacao(){
 
 }
 
+public ArrayList<Locacao> getLocacoes() {
+    return locacoes;
+}
+
 public void cadastrar(Locacao l1) {
 
      if (l1.getEquipamentos().isEmpty()) {
@@ -24,70 +28,91 @@ public void cadastrar(Locacao l1) {
     locacoes.add(l1);
  }
 
-public void mostrarHistorico() {
+public String mostrarHistorico() {
+
+    String resultado= "";
 
         for (Locacao l : locacoes) {
 
-            System.out.println("Cliente: " + l.getCliente().getNome());
-            System.out.println("Quantidade de dias: " + l.getQntdDias());
+            resultado +="Cliente: " + l.getCliente().getNome() + "\n";
+            resultado +="Quantidade de dias: " + l.getQntdDias() + "\n";
 
-            System.out.println("Equipamentos:");
+            resultado +="Equipamentos:" + "\n";
 
             for (Equipamento e : l.getEquipamentos()) {
-               System.out.println("Código: " + e.getCodigo() + " | Descrição: " + e.getDescricao());
+               resultado += "Código: " + e.getCodigo() + " | Descrição: " + e.getDescricao() + "\n";
             }
 
-            System.out.println("Valor total: R$ " + l.calcularTotal());
+            resultado += "Valor total: R$ " + l.calcularTotal() + "\n";
+            resultado += "Finalizada: " + l.getFinalizado() + "\n";
 
         }
+
+        return resultado;
     }
 
-    public void listarLocacoesAtivas() {
+    public String listarLocacoesAtivas() {
+
+        String resultado = "";
 
     for (Locacao l : locacoes) {
 
         if (!l.getFinalizado()) {
-            System.out.println("Cliente: " + l.getCliente().getNome());
-            System.out.println("Dias: " + l.getQntdDias());
+            resultado += "Cliente: " + l.getCliente().getNome() + "\n";
+            resultado += "Dias: " + l.getQntdDias() + "\n";
             for (Equipamento e : l.getEquipamentos()) {
-                    System.out.println("Equipamento: " + e.getDescricao());
+                    resultado += "Equipamento: " + e.getDescricao() + "\n";
                 }
+            resultado += "Valor total: R$ " + l.calcularTotal() + "\n";
         }
-    }
-         }
 
-     public void consultarHistorico(Cliente cliente) {
+        
+    }
+    return resultado;
+ }
+
+     public String consultarHistorico(Cliente cliente) {
+
+        String resultado = "";
 
         for (Locacao l : locacoes) {
 
             if (l.getCliente().getId() == cliente.getId()) {
 
-                System.out.println("Quantidade de dias: " + l.getQntdDias());
+                resultado += "Quantidade de dias: " + l.getQntdDias() + "\n";
 
                 for (Equipamento e : l.getEquipamentos()) {
-                    System.out.println("Equipamento: " + e.getDescricao());
+                    resultado += "Equipamento: " + e.getDescricao() + "\n";
                 }
 
-                System.out.println("Valor total: R$ " + l.calcularTotal());
+                resultado += "Valor total: R$ " + l.calcularTotal() + "\n";
+                resultado += "Finalizada: " + l.getFinalizado() + "\n";
+
+               
             }
         }
+        return resultado;
     }
 
-public void exibirDetalhes(Locacao l) {
+public String exibirDetalhes(Locacao l) {
 
-    System.out.println("Cliente: " + l.getCliente().getNome());
-    System.out.println("Quantidade de dias: " + l.getQntdDias());
+    String resultado= "";
 
-    System.out.println("Equipamentos:");
+    resultado +="Cliente: " + l.getCliente().getNome() + "\n";
+    resultado += "Quantidade de dias: " + l.getQntdDias() + "\n";
+
+    resultado += "Equipamentos:\n";
 
     for (Equipamento e : l.getEquipamentos()) {
 
-        System.out.println("Equipamento: " + e.getCodigo());
-
-        System.out.println("Valor: R$ " + l.calcularValorEquipamento(e));
+        resultado += "Equipamento: " + e.getCodigo() + "\n";
+        resultado += "Descrição: " + e.getDescricao() + "\n";
+       resultado += "Valor: R$ " + l.calcularValorEquipamento(e) + "\n";
     }
 
-    System.out.println("Valor total: R$ " + l.calcularTotal());
+    resultado +="Valor total: R$ " + l.calcularTotal() + "\n";
+
+    return resultado;
 }
     
     
