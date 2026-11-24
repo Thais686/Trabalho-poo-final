@@ -3,6 +3,8 @@ package interfaceGrafica;
 import gerenciador.GerenciadorCliente;
 import javax.swing.*;
 import java.awt.*;
+import gerenciador.GerenciadorEquipamentos;
+import gerenciador.GerenciadorLocacao;
 
 public class TelaPrincipal {
 
@@ -13,6 +15,8 @@ public class TelaPrincipal {
     JButton botaoLocacao = new JButton("Locações");
     JButton botaoConsulta = new JButton("Consultas");
     GerenciadorCliente gerenciadorCliente = new GerenciadorCliente();
+    GerenciadorEquipamentos gerenciadorEquipamentos = new GerenciadorEquipamentos();
+    GerenciadorLocacao gerenciadorLocacao = new GerenciadorLocacao();
 
     public TelaPrincipal() {
 
@@ -29,6 +33,9 @@ public class TelaPrincipal {
         janela.setVisible(true);
 
          botaoCliente.addActionListener(e -> new TelaCliente(gerenciadorCliente));
+         botaoLocacao.addActionListener(e -> new TelaLocacao(gerenciadorCliente, gerenciadorEquipamentos, gerenciadorLocacao));
+         botaoConsulta.addActionListener(e -> new TelaConsulta(gerenciadorCliente, gerenciadorEquipamentos, gerenciadorLocacao));
+         botaoEquipamento.addActionListener(e -> new TelaEquipamento(gerenciadorEquipamentos));
     }
 
     public static void main(String[] args) {
