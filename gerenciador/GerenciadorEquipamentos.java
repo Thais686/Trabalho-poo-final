@@ -23,34 +23,58 @@ public class GerenciadorEquipamentos {
     equipamentos.add(e1);
 }
 
-     public void listar() {
+     public String  listar() {
+
+        String resultado= "";
 
         for (Equipamento e1 : equipamentos) {
 
-            System.out.println( "ID: " + e1.getCodigo() + "   Descrição: " + e1.getDescricao() + "  Valor diária: R$ " + e1.getValorDiaria() + "  " + e1.exibirCaracteristicas());
+            resultado += "ID: " + e1.getCodigo() + "   Descrição: " + e1.getDescricao() + "  Valor diária: R$ " + e1.getValorDiaria() + "  " + e1.exibirCaracteristicas() + "\n";
         }
+        return resultado;
     }
 
-    public void consultar(int codigo) throws EquipamentoNaoEncontradoException {
+    public String consultar(int codigo) throws EquipamentoNaoEncontradoException {
+
+            String resultado="";
 
         for (Equipamento e1 : equipamentos) {
             if (e1.getCodigo() == codigo) {
-                System.out.println( "ID: " + e1.getCodigo() + "  Descrição: " + e1.getDescricao() + "  Valor diária: R$ " + e1.getValorDiaria() + "   " + e1.exibirCaracteristicas() );
-                return;
+                resultado += "ID: " + e1.getCodigo() + "\n";
+                resultado += "Descrição: " + e1.getDescricao() + "\n";
+                resultado += "Valor diária: R$ " + e1.getValorDiaria() + "\n";
+                resultado += e1.exibirCaracteristicas() + "\n";
+                return resultado;
             }
         }
         throw new EquipamentoNaoEncontradoException(codigo);
     }
 
-    public void listarDisponiveis() {
+    public String listarDisponiveis() {
+
+        String resultado= "";
 
         for (Equipamento e1 : equipamentos) {
 
             if (e1.isDisponivel()) {
 
-                 System.out.println( "ID: " + e1.getCodigo() + "  Descrição: " + e1.getDescricao() + "  Valor diária: R$ " + e1.getValorDiaria() + "  " + e1.exibirCaracteristicas() );
+                 resultado += "ID: " + e1.getCodigo() + "\n";
+                 resultado += "Descrição: " + e1.getDescricao() + "\n";
+                 resultado += "Valor diária: R$ " + e1.getValorDiaria() + "\n";
+                resultado += e1.exibirCaracteristicas() + "\n";
             }
 
         }
+        return resultado;
     }
+
+    public Equipamento buscarPorCodigo(int codigo) throws EquipamentoNaoEncontradoException {
+    for (Equipamento e : equipamentos) {
+        if (e.getCodigo() == codigo) {
+            return e;
+        }
+    }
+
+    throw new EquipamentoNaoEncontradoException(codigo);
+}
 }
