@@ -1,5 +1,13 @@
+package interfaceGrafica;
+
 import javax.swing.*;
 import java.awt.*;
+
+import gerenciador.GerenciadorEquipamentos;
+import modelo.Equipamento;
+import modelo.EquipamentoSom;
+import modelo.EquipamentoProjecao;
+import modelo.EquipamentoIluminacao;
 
 
 public class TelaEquipamento {
@@ -44,7 +52,7 @@ public class TelaEquipamento {
     public TelaEquipamento(GerenciadorEquipamentos gerenciador){
         this.gerenciador = gerenciador;
         janela.setSize(800,200);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         painelCampos.setLayout(new GridLayout(4,2));
         painelCampos.add(label); 
         painelCampos.add(campoCodigo);
