@@ -3,6 +3,7 @@ import java.awt.*;
 
 
 public class TelaEquipamento {
+    GerenciadorEquipamentos gerenciador;
     JFrame janela = new JFrame ("Tela de Equipamentos");
     JLabel label = new JLabel ("Código do Equipamento:");
     JTextField campoCodigo = new JTextField(10);
@@ -37,9 +38,11 @@ public class TelaEquipamento {
     JPanel painelbotao = new JPanel();
 
     JButton cadastrar = new JButton("Cadastrar");
+    JButton limpar = new JButton("Limpar");
 
 
-    public TelaEquipamento(){
+    public TelaEquipamento(GerenciadorEquipamentos gerenciador){
+        this.gerenciador = gerenciador;
         janela.setSize(800,200);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         painelCampos.setLayout(new GridLayout(4,2));
@@ -74,15 +77,49 @@ public class TelaEquipamento {
         painelEspecificos.add(painelProjecao, "Projeção");
         janela.getContentPane().add(painelEspecificos, BorderLayout.CENTER);
 
+        painelbotao.add(cadastrar);
+        painelbotao.add(limpar);
+        janela.getContentPane().add(painelbotao, BorderLayout.SOUTH);
+
+        cadastrar.addActionListener(e -> {
+            String codigo = campoCodigo.getText();
+            String descricao = campoDescricao.getText();
+            String valorDiaria = campoValorDiaria.getText();
+            String tipo = (String) eTipo.getSelectedItem();
+            try{
+            Equipamento equipamento = null;
+            if (tipo.equals("Som")) {
+               equipamento = new EquipamentoSom(Integer.parseInt(codigo), descricao, Double.parseDouble(valorDiaria), Integer.parseInt(campoPotencia.getText()), Integer.parseInt(campoCanais.getText()));
+            } else if (tipo.equals("Iluminação")) {
+                equipamento = new EquipamentoIluminacao(Integer.parseInt(codigo), descricao, Double.parseDouble(valorDiaria), campoTipoI.getText(), Double.parseDouble(campoPotenciaI.getText()));
+            } else if (tipo.equals("Projeção")) {
+                equipamento = new EquipamentoProjecao(Integer.parseInt(codigo), descricao, Double.parseDouble(valorDiaria), campoResolucao.getText(), Double.parseDouble(campoLuminosidade.getText()));
+
+            }
+            gerenciador.cadastrar(equipamento);
+            JOptionPane.showMessageDialog(janela, "Equipamento cadastrado com sucesso!");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(janela, "Erro: Por favor, insira valores numéricos válidos");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(janela, "Erro: " + ex.getMessage());
+            }
+        });
+
+        limpar.addActionListener(e -> {
+            campoCodigo.setText("");
+            campoDescricao.setText("");
+            campoValorDiaria.setText("");
+            campoPotencia.setText("");
+            campoCanais.setText("");
+            campoTipoI.setText("");
+            campoPotenciaI.setText("");
+            campoResolucao.setText("");
+            campoLuminosidade.setText("");
+        });
+
        eTipo.addActionListener(e -> {
     String tipo = (String) eTipo.getSelectedItem();
     cardLayout.show(painelEspecificos, tipo);
 }); 
         janela.setVisible(true);
-
-
-
     }}
-
-
-
