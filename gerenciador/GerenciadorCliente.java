@@ -22,26 +22,43 @@ public class GerenciadorCliente {
     clientesCadastrados.add(c);
 }
 
-    public void consultar(int id) throws ClienteNaoEncontradoException {
+    public String consultar(int id) throws ClienteNaoEncontradoException {
 
-        
+        String resultado= "";
     for (Cliente c : clientesCadastrados) {
+
+
         if (c.getId() == id) {
-            System.out.println("Cliente encontrado!");
-            System.out.println("ID: " + c.getId());
-            System.out.println("Nome: " + c.getNome());
-            System.out.println("Telefone: " + c.getTelefone());
-            System.out.println("Email: " + c.getEmail());
-            return;
+            resultado += "Cliente encontrado!\n";
+            resultado +="ID: " + c.getId() + "\n";
+            resultado += "Nome: " + c.getNome() + "\n";
+            resultado += "Telefone: " + c.getTelefone() + "\n";
+            resultado += "Email: " + c.getEmail() + "\n";
+            return resultado;
         }
     }
 
     throw new ClienteNaoEncontradoException(id);
 }
 
-   public void listar() {
+   public String listar() {
+
+        String resultado= "";
+
     for (Cliente c : clientesCadastrados) {
-        System.out.println("ID: " + c.getId() + " | Nome: " + c.getNome() + " | Telefone: " + c.getTelefone() + " | Email: " + c.getEmail());
+        resultado +=("ID: " + c.getId() + " | Nome: " + c.getNome() + " | Telefone: " + c.getTelefone() + " | Email: " + c.getEmail()+ "\n");
     }
+
+    return resultado;
+}
+
+public Cliente buscarPorId(int id) throws ClienteNaoEncontradoException {
+    for (Cliente c : clientesCadastrados) {
+        if (c.getId() == id) {
+            return c;
+        }
+    }
+
+    throw new ClienteNaoEncontradoException(id);
 }
 }
